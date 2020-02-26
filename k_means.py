@@ -167,6 +167,26 @@ def is_different(old_k_means, new_k_means):
         return True
 
 
+def create_new_image(image, k_means):
+    """Using the finalized color averages, copies the original image and converts
+    each pixel to the k-mean color average that it's closest to in euclidean distance.
+    Afterwards, returns the modified copy of the image
+    Image is represented as a two-dimensional list that contains 3-tuple values"""
+    new_img = image[:]
+    width, height = get_width_height(image)
+
+    for col in range(0, width):
+        for row in range(0, height):
+
+            old_color = image[col][row]
+            new_color_index = color_distance(old_color, k_means)
+
+            new_color = k_means[new_color_index]
+            new_img[col][row] = new_color
+
+    return new_img
+
+
 
 
 
